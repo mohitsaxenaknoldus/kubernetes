@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: ubuntu-sidecar-mysql
+spec:
+ containers:
+   - name: app
+     image: ubuntu
+     ports:
+       - containerPort: 3000
+   - name: sidecar-mysql
+     image: mysql
+     ports:
+       - containerPort: 5432
