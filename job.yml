@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: simple-job
+  namespace: testing
+spec:
+  # backoffLimit: 2
+  # ttlSecondsAfterFinished: 10                        # 0 -> instant delete after job done, if left blank, will not be handles by TTLController
+  completions: 2
+  completionMode: Indexed
+  template:
+    spec:
+      containers:
+      - name: say-something
+        image: busybox:457815
+        command: ["echo", "Running a job"]
+      - name: say-something2
+        image: alpine
+        command: ["sleep", "1"]
+      restartPolicy: OnFailure
+      # activeDeadlineSeconds: 10                 # This has precedence over backOffLimit
+
